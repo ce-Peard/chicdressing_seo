@@ -1,1 +1,1 @@
-ë'Ûe<?php exit; ?>a:1:{s:7:"content";a:2:{s:7:"version";s:5:"2.195";s:8:"patterns";a:0:{}}}
+´/Ûe<?php exit; ?>a:1:{s:7:"content";a:2:{s:7:"version";s:5:"2.195";s:8:"patterns";a:0:{}}}

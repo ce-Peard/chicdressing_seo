@@ -16,29 +16,34 @@ Text Domain:	 chicdressing
 @font-face {
 	font-family: 'Kalam';
     font-weight: 700;
-	src: url('assets/fonts/Kalam/Kalam-Bold.ttf') format('truetype')
+	src: url('assets/fonts/Kalam/Kalam-Bold.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
 	font-family: 'Kalam';
     font-weight: 400;
-	src: url('assets/fonts/Kalam/Kalam-Regular.ttf') format('truetype')
+	src: url('assets/fonts/Kalam/Kalam-Regular.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
 	font-family: 'Kalam';
     font-weight: 300;
-	src: url('assets/fonts/Kalam/Kalam-Light.ttf') format('truetype')
+	src: url('assets/fonts/Kalam/Kalam-Light.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
 	font-family: 'Playfair Display';
-	src: url('Assets/Fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('truetype')
+	src: url('Assets/Fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
 	font-family: 'Open Sans';
-	src: url('Assets/Fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf') format('truetype')
+	src: url('Assets/Fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-display: swap;
 }
 
 /*
