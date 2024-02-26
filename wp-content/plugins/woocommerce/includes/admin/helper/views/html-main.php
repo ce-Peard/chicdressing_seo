@@ -21,9 +21,9 @@
 			<?php
 			printf(
 				wp_kses(
-					/* translators: Introduction to list of WooCommerce.com extensions the merchant has subscriptions for. */
+					/* translators: Introduction to list of Woo.com extensions the merchant has subscriptions for. */
 					__(
-						'Below is a list of extensions available on your WooCommerce.com account. To receive extension updates please make sure the extension is installed, and its subscription activated and connected to your WooCommerce.com account. Extensions can be activated from the <a href="%s">Plugins</a> screen.',
+						'Below is a list of extensions available on your Woo.com account. To receive extension updates please make sure the extension is installed, and its subscription activated and connected to your Woo.com account. Extensions can be activated from the <a href="%s">Plugins</a> screen.',
 						'woocommerce'
 					),
 					array(
@@ -60,7 +60,8 @@
 			$class_html = $current_filter === $key ? 'class="current"' : '';
 			?>
 			<li>
-				<a <?php echo esc_html( $class_html ); ?> href="<?php echo esc_url( $url ); ?>">
+				<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<a <?php echo $class_html; ?> href="<?php echo esc_url( $url ); ?>">
 					<?php echo esc_html( $label ); ?>
 					<span class="count">(<?php echo absint( $counts[ $key ] ); ?>)</span>
 				</a>
@@ -75,7 +76,7 @@
 				<tr class="wp-list-table__row is-ext-header">
 					<td class="wp-list-table__ext-details">
 						<div class="wp-list-table__ext-title">
-							<a href="<?php echo esc_url( $subscription['product_url'] ); ?>" target="_blank">
+							<a href="<?php echo esc_url( WC_Helper::add_utm_params_to_url_for_subscription_link( $subscription['product_url'], 'product-name' ) ); ?>" target="_blank">
 								<?php echo esc_html( $subscription['product_name'] ); ?>
 							</a>
 						</div>
@@ -134,7 +135,7 @@
 					</td>
 					<td class="wp-list-table__ext-actions">
 						<?php if ( ! $subscription['active'] && $subscription['maxed'] ) : ?>
-							<a class="button" href="https://woocommerce.com/my-account/my-subscriptions/" target="_blank"><?php esc_html_e( 'Upgrade', 'woocommerce' ); ?></a>
+							<a class="button" href="https://woo.com/my-account/my-subscriptions/" target="_blank"><?php esc_html_e( 'Upgrade', 'woocommerce' ); ?></a>
 						<?php elseif ( ! $subscription['local']['installed'] && ! $subscription['expired'] ) : ?>
 							<a class="button <?php echo empty( $subscription['download_primary'] ) ? 'button-secondary' : ''; ?>" href="<?php echo esc_url( $subscription['download_url'] ); ?>" target="_blank"><?php esc_html_e( 'Download', 'woocommerce' ); ?></a>
 						<?php elseif ( $subscription['active'] ) : ?>
@@ -189,7 +190,7 @@
 			<?php endforeach; ?>
 		<?php else : ?>
 			<tr>
-				<td colspan="3"><em><?php esc_html_e( 'Could not find any subscriptions on your WooCommerce.com account', 'woocommerce' ); ?></td>
+				<td colspan="3"><em><?php esc_html_e( 'Could not find any subscriptions on your Woo.com account', 'woocommerce' ); ?></td>
 			</tr>
 		<?php endif; ?>
 		</tbody>
@@ -197,7 +198,7 @@
 
 	<?php if ( ! empty( $no_subscriptions ) ) : ?>
 		<h2><?php esc_html_e( 'Installed Extensions without a Subscription', 'woocommerce' ); ?></h2>
-		<p>Below is a list of WooCommerce.com products available on your site - but are either out-dated or do not have a valid subscription.</p>
+		<p>Below is a list of Woo.com products available on your site - but are either out-dated or do not have a valid subscription.</p>
 
 		<table class="wp-list-table widefat fixed striped">
 			<?php /* Extensions without a subscription. */ ?>
@@ -206,7 +207,9 @@
 					<tr class="wp-list-table__row is-ext-header">
 						<td class="wp-list-table__ext-details color-bar autorenews">
 							<div class="wp-list-table__ext-title">
-								<a href="<?php echo esc_url( $data['_product_url'] ); ?>" target="_blank"><?php echo esc_html( $data['Name'] ); ?></a>
+								<a href="<?php echo esc_url( WC_Helper::add_utm_params_to_url_for_subscription_link( $data['_product_url'], 'product-name' ) ); ?>" target="_blank">
+									<?php echo esc_html( $data['Name'] ); ?>
+								</a>
 							</div>
 							<div class="wp-list-table__ext-description">
 							</div>

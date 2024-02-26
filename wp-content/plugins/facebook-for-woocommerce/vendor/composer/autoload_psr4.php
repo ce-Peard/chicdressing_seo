@@ -6,7 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'SkyVerge\\WooCommerce\\Facebook\\' => array($baseDir . '/includes'),
-    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
+    'WooCommerce\\Facebook\\' => array($baseDir . '/includes'),
     'Automattic\\WooCommerce\\ActionSchedulerJobFramework\\' => array($vendorDir . '/woocommerce/action-scheduler-job-framework/src'),
 );

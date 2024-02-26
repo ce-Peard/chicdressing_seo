@@ -25,7 +25,7 @@ if ( is_home() ) {
 		<?php
 		echo do_shortcode('[products orderby="date" columns="3" order="ASC"]');
 		?>
-		<p class="text-center"><a class="chic-bouton" href="/shop">Voir toute la collection</a></p>
+		<p class="text-center"><a class="chic-bouton" href="/chicdressing_seo/shop">Voir toute la collection</a></p>
 	</div>
 	<!-- on inclut la Google Maps de la Fashion Week -->
 	<div id="chic-fashionweek-map" class="boxed-wrapper clear-fix" style="margin-top:30px">

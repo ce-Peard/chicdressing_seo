@@ -159,6 +159,7 @@ class SWP_Script {
 	 * Queue up our javscript for options and whatnot
 	 *
 	 * @since 1.4.0
+	 * @since 4.4.0 Update script output to convert HTML entities back to characters.
 	 * @param Void
 	 * @return Void. Echo results directly to the screen.
 	 *
@@ -183,9 +184,12 @@ class SWP_Script {
 
 		// If we have output, output it.
 		if ( $info['footer_output'] ) {
-			echo '<script type="text/javascript">';
-			echo $info['footer_output'];
-			echo '</script>';
+			$html = '<script type="text/javascript">';
+			$html .= $info['footer_output'];
+			$html .= '</script>';
+
+			// Convert special HTML entities back to Characters.
+			echo htmlspecialchars_decode( wp_kses($html, SWP_Section_HTML::get_allowable_html() ) );
 		}
 	}
 

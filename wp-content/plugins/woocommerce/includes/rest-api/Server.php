@@ -29,6 +29,8 @@ class Server {
 	 */
 	public function init() {
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ), 10 );
+
+		\WC_REST_System_Status_V2_Controller::register_cache_clean();
 	}
 
 	/**
@@ -141,6 +143,7 @@ class Server {
 			'coupons'                  => 'WC_REST_Coupons_Controller',
 			'customer-downloads'       => 'WC_REST_Customer_Downloads_Controller',
 			'customers'                => 'WC_REST_Customers_Controller',
+			'layout-templates'         => 'WC_REST_Layout_Templates_Controller',
 			'network-orders'           => 'WC_REST_Network_Orders_Controller',
 			'order-notes'              => 'WC_REST_Order_Notes_Controller',
 			'order-refunds'            => 'WC_REST_Order_Refunds_Controller',

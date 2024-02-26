@@ -1,6 +1,6 @@
 <?php
 /**
- * The update helper for WooCommerce.com plugins.
+ * The update helper for Woo.com plugins.
  *
  * @class WC_Helper_Updater
  * @package WooCommerce\Admin\Helper
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC_Helper_Updater Class
  *
  * Contains the logic to fetch available updates and hook into Core's update
- * routines to serve WooCommerce.com-provided packages.
+ * routines to serve Woo.com-provided packages.
  */
 class WC_Helper_Updater {
 
@@ -68,24 +68,28 @@ class WC_Helper_Updater {
 				$item['package'] = 'woocommerce-com-expired-' . $plugin['_product_id'];
 			}
 
-			if ( version_compare( $plugin['Version'], $data['version'], '<' ) ) {
-				$transient->response[ $filename ] = (object) $item;
-				unset( $transient->no_update[ $filename ] );
-			} else {
-				$transient->no_update[ $filename ] = (object) $item;
-				unset( $transient->response[ $filename ] );
+			if ( $transient instanceof stdClass ) {
+				if ( version_compare( $plugin['Version'], $data['version'], '<' ) ) {
+					$transient->response[ $filename ] = (object) $item;
+					unset( $transient->no_update[ $filename ] );
+				} else {
+					$transient->no_update[ $filename ] = (object) $item;
+					unset( $transient->response[ $filename ] );
+				}
 			}
 		}
 
-		$translations = self::get_translations_update_data();
-		$transient->translations = array_merge( isset( $transient->translations ) ? $transient->translations : array(), $translations );
+		if ( $transient instanceof stdClass ) {
+			$translations            = self::get_translations_update_data();
+			$transient->translations = array_merge( isset( $transient->translations ) ? $transient->translations : array(), $translations );
+		}
 
 		return $transient;
 	}
 
 	/**
 	 * Runs on pre_set_site_transient_update_themes, provides custom
-	 * packages for WooCommerce.com-hosted extensions.
+	 * packages for Woo.com-hosted extensions.
 	 *
 	 * @param object $transient The update_themes transient object.
 	 *
@@ -122,6 +126,37 @@ class WC_Helper_Updater {
 		}
 
 		return $transient;
+	}
+
+	/**
+	 * Get update data for all plugins.
+	 *
+	 * @return array Update data {product_id => data}
+	 * @see get_update_data
+	 */
+	public static function get_available_extensions_downloads_data() {
+		$payload = array();
+
+		// Scan subscriptions.
+		foreach ( WC_Helper::get_subscriptions() as $subscription ) {
+			$payload[ $subscription['product_id'] ] = array(
+				'product_id' => $subscription['product_id'],
+				'file_id'    => '',
+			);
+		}
+
+		// Scan local plugins which may or may not have a subscription.
+		foreach ( WC_Helper::get_local_woo_plugins() as $data ) {
+			if ( ! isset( $payload[ $data['_product_id'] ] ) ) {
+				$payload[ $data['_product_id'] ] = array(
+					'product_id' => $data['_product_id'],
+				);
+			}
+
+			$payload[ $data['_product_id'] ]['file_id'] = $data['_file_id'];
+		}
+
+		return self::_update_check( $payload );
 	}
 
 	/**
@@ -170,7 +205,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Get translations updates informations.
+	 * Get translations updates information.
 	 *
 	 * Scans through all subscriptions for the connected user, as well
 	 * as all Woo extensions without a subscription, and obtains update
@@ -195,7 +230,7 @@ class WC_Helper_Updater {
 		$locales = apply_filters( 'plugins_update_check_locales', $locales );
 		$locales = array_unique( $locales );
 
-		// No locales, the respone will be empty, we can return now.
+		// No locales, the response will be empty, we can return now.
 		if ( empty( $locales ) ) {
 			return array();
 		}
@@ -481,7 +516,7 @@ class WC_Helper_Updater {
 		return new WP_Error(
 			'woocommerce_subscription_expired',
 			sprintf(
-				// translators: %s: URL of WooCommerce.com subscriptions tab.
+				// translators: %s: URL of Woo.com subscriptions tab.
 				__( 'Please visit the <a href="%s" target="_blank">subscriptions page</a> and renew to continue receiving updates.', 'woocommerce' ),
 				esc_url( admin_url( 'admin.php?page=wc-addons&section=helper' ) )
 			)

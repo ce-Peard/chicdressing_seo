@@ -98,7 +98,7 @@ class SWP_Section_HTML extends SWP_Option {
 		endif;
 
 		$html .= '<div class="system-status-wrapper">';
-			$html .= '<h4><?= $status_title ?></h4>';
+			$html .= '<h4>' . $status_title . '</h4>';
 			$html .= '<div class="system-status-container"> '. $this->system_status() . '</div>';
 		$html .= '</div></div>';
 
@@ -216,7 +216,7 @@ class SWP_Section_HTML extends SWP_Option {
 		$html .= '<div class="sw-grid sw-col-940 swp_tweets_not_activated">';
 
 		// The Warning Notice & Instructions
-		$html .= '<p class="sw-subtitle sw-registration-text sw-italic">Step 1: <a style="float:none;" class="button sw-navy-button" href="http://twitcount.com" target="_blank">' . __( 'Click here to visit TwitCount.com' , 'social-warfare' ) . '</a> or <a style="float:none;" class="button sw-navy-button" href="http://opensharecount.com" target="_blank">' . __( 'Click here to visit OpenShareCount.com' , 'social-warfare' ) . '</a><br />' . __( 'Step 2: Follow the prompts on their website to create an account and add your domain to be tracked for share counts. If you see a prompt to customize your button, ignore and click past that. You are not using their button, you are using ours.' , 'social-warfare' ) . '<br />' . __( 'Step 3: Flip the switch below to "ON", select which tracking service the plugin should use, then save your changes.' , 'social-warfare' ) . '</p>';
+		$html .= '<p class="sw-subtitle sw-registration-text sw-italic">Step 1: <a style="float:none;" class="button sw-navy-button" href="http://twitcount.com" target="_blank">' . __( 'Click here to visit TwitCount.com' , 'social-warfare' ) . '</a> or <a style="float:none;" class="button sw-navy-button" href="http://opensharecount.com" target="_blank">' . __( 'Click here to visit OpenShareCount.com' , 'social-warfare' ) . '</a><br />' . __( 'Step 2: Follow the prompts on their website to create an account and add your domain to be tracked for share counts. If you see a prompt to customize your button, ignore and click past that. You are not using their button, you are using ours.' , 'social-warfare' ) . '<br />' . __( 'Step 3: Flip the switch below to "ON", select which tracking service the plugin should use, then save your changes.', 'social-warfare' ) . '</p>';
 
 		// Close the IS NOT ACTIVATED container
 		$html .= '</div>';
@@ -281,22 +281,8 @@ class SWP_Section_HTML extends SWP_Option {
 			$link .= "&redirect_uri=https://warfareplugins.com/bitly_oauth.php";
 		}
 
-		ob_start() ?>
-
-			<div class="sw-grid sw-col-940 sw-fit sw-option-container <?= $this->key ?> '_wrapper" data-dep="bitly_authentication" data-dep_val="[true]">
-				<div class="sw-grid sw-col-300">
-					<p class="sw-authenticate-label"><?php __( 'Bitly Link Shortening', 'social-warfare' ) ?></p>
-				</div>
-				<div class="sw-grid sw-col-300">
-					<a  target="<?= $target ?>" class="button <?= $color ?>" href="<?= $link ?>"><?= $text ?></a>
-				</div>
-				<div class="sw-grid sw-col-300 sw-fit"></div>
-			</div>
-
-		<?php
-
-		$this->html = ob_get_contents();
-		ob_end_clean();
+		$this->html = '';
+		$this->html .= '<div class="sw-grid sw-col-940 sw-fit sw-option-container ' . $this->key . '_wrapper" data-dep="bitly_authentication" data-dep_val="[true]"><div class="sw-grid sw-col-300"><p class="sw-authenticate-label">' . __( 'Bitly Link Shortening', 'social-warfare' ) . '</p></div><div class="sw-grid sw-col-300"><a  target="' . $target . '" class="button ' . $color . '" href="' . $link . '">' . $text . '</a></div><div class="sw-grid sw-col-300 sw-fit"></div></div>';
 
 		return $this;
 	}
@@ -306,20 +292,16 @@ class SWP_Section_HTML extends SWP_Option {
 	* The buttons preview as shown on the Display tab.
 	*
 	* @since  3.0.0 | 01 MAR 2018 | Created
+	* @since  4.4.0 | 01 Feb 2023 | Updated via for demo to be @warfareplugins.
 	* @param  void
 	* @return object $this The calling instance, for method chaining.
 	*
 	*/
 	public function do_buttons_preview() {
 		$style = 'swp_' . SWP_Utility::get_option( 'button_shape' );
-		ob_start() ?>
 
-<div class="swp_social_panel swp_horizontal_panel swp_flat_fresh  swp_default_full_color swp_other_full_color swp_individual_full_color scale-100 scale-full_width" data-float-color="#ffffff" data-float="none" data-float-mobile="none" data-transition="slide"><div class="nc_tweetContainer swp_share_button swp_facebook" data-network="facebook"><a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank" href="https://www.facebook.com/share.php?u=https%3A%2F%2Fwarfareplugins.com%2F%3Futm_source%3Dfacebook%26utm_medium%3DSocial%26utm_campaign%3DSocialWarfare" data-link="https://www.facebook.com/share.php?u=https%3A%2F%2Fwarfareplugins.com%2F%3Futm_source%3Dfacebook%26utm_medium%3DSocial%26utm_campaign%3DSocialWarfare"><span class="iconFiller"><span class="spaceManWilly"><i class="sw swp_facebook_icon"></i><span class="swp_share">Share</span></span></span><span class="swp_count" style="transition: padding 0.1s linear 0s;">17.5K</span></a></div><div class="nc_tweetContainer swp_share_button swp_twitter" data-network="twitter"><a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank" href="https://twitter.com/intent/tweet?text=Ultimate+Social+Share+%23WordPress+plugin%21+Beautiful%2C+super+fast+%26+more+http%3A%2F%2Fwarfareplugins.com+pic.twitter.com%2FA2zcCJwZtO&amp;url=/&amp;via=DustinWStout" data-link="https://twitter.com/intent/tweet?text=Ultimate+Social+Share+%23WordPress+plugin%21+Beautiful%2C+super+fast+%26+more+http%3A%2F%2Fwarfareplugins.com+pic.twitter.com%2FA2zcCJwZtO&amp;url=/&amp;via=DustinWStout"><span class="iconFiller"><span class="spaceManWilly"><i class="sw swp_twitter_icon"></i><span class="swp_share">Tweet</span></span></span><span class="swp_count" style="transition: padding 0.1s linear 0s;">158.9K</span></a></div><div class="nc_tweetContainer swp_share_button swp_pinterest" data-network="pinterest"><a rel="nofollow noreferrer noopener" class="nc_tweet swp_share_link" data-count="0" data-link="https://pinterest.com/pin/create/button/?url=https://warfareplugins.com/&amp;media=https%3A%2F%2Fwarfareplugins.com%2Fwp-content%2Fuploads%2Fincrease-shares-drive-traffic-735x1498.jpg&amp;description=Customize+your+Pinterest+sharing+options%2C+create+easy+%22click+to+tweet%22+buttons+within+your+blog+posts%2C+beautiful+sharing+buttons+and+more.+Social+Warfare+is+the+ultimate+social+sharing+arsenal+for+WordPress%21+via+%40warfareplugins"><span class="iconFiller"><span class="spaceManWilly"><i class="sw swp_pinterest_icon"></i><span class="swp_share">Pin</span></span></span><span class="swp_count" style="transition: padding 0.1s linear 0s;">122.0K</span></a></div><div class="nc_tweetContainer swp_share_button swp_linkedin" data-network="linkedin"><a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank" href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fwarfareplugins.com%2F%3Futm_source%3Dlinkedin%26utm_medium%3DSocial%26utm_campaign%3DSocialWarfare" data-link="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fwarfareplugins.com%2F%3Futm_source%3Dlinkedin%26utm_medium%3DSocial%26utm_campaign%3DSocialWarfare"><span class="iconFiller"><span class="spaceManWilly"><i class="sw swp_linkedin_icon"></i><span class="swp_share">Share</span></span></span><span class="swp_count" style="transition: padding 0.1s linear 0s;">1.5K</span></a></div><div class="nc_tweetContainer swp_share_button total_shares total_sharesalt"><span class="swp_count " style="transition: padding 0.1s linear 0s;">298.4K <span class="swp_label">Shares</span></span></div></div>
-
-		<?php
-
-		$this->html = ob_get_contents();
-		ob_end_clean();
+		$this->html = '';
+		$this->html .= '<div class="swp_social_panel swp_horizontal_panel swp_flat_fresh  swp_default_full_color swp_other_full_color swp_individual_full_color scale-100 scale-full_width" data-float-color="#ffffff" data-float="none" data-float-mobile="none" data-transition="slide"><div class="nc_tweetContainer swp_share_button swp_facebook" data-network="facebook"><a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank" href="https://www.facebook.com/share.php?u=https%3A%2F%2Fwarfareplugins.com%2F%3Futm_source%3Dfacebook%26utm_medium%3DSocial%26utm_campaign%3DSocialWarfare" data-link="https://www.facebook.com/share.php?u=https%3A%2F%2Fwarfareplugins.com%2F%3Futm_source%3Dfacebook%26utm_medium%3DSocial%26utm_campaign%3DSocialWarfare"><span class="iconFiller"><span class="spaceManWilly"><i class="sw swp_facebook_icon"></i><span class="swp_share">Share</span></span></span><span class="swp_count" style="transition: padding 0.1s linear 0s;">17.5K</span></a></div><div class="nc_tweetContainer swp_share_button swp_twitter" data-network="twitter"><a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank" href="https://twitter.com/intent/tweet?text=Ultimate+Social+Share+%23WordPress+plugin%21+Beautiful%2C+super+fast+%26+more+http%3A%2F%2Fwarfareplugins.com+pic.twitter.com%2FA2zcCJwZtO&amp;url=/&amp;via=warfareplugins" data-link="https://twitter.com/intent/tweet?text=Ultimate+Social+Share+%23WordPress+plugin%21+Beautiful%2C+super+fast+%26+more+http%3A%2F%2Fwarfareplugins.com+pic.twitter.com%2FA2zcCJwZtO&amp;url=/&amp;via=warfareplugins"><span class="iconFiller"><span class="spaceManWilly"><i class="sw swp_twitter_icon"></i><span class="swp_share">Tweet</span></span></span><span class="swp_count" style="transition: padding 0.1s linear 0s;">158.9K</span></a></div><div class="nc_tweetContainer swp_share_button swp_pinterest" data-network="pinterest"><a rel="nofollow noreferrer noopener" class="nc_tweet swp_share_link" data-count="0" data-link="https://pinterest.com/pin/create/button/?url=https://warfareplugins.com/&amp;media=https%3A%2F%2Fwarfareplugins.com%2Fwp-content%2Fuploads%2Fincrease-shares-drive-traffic-735x1498.jpg&amp;description=Customize+your+Pinterest+sharing+options%2C+create+easy+%22click+to+tweet%22+buttons+within+your+blog+posts%2C+beautiful+sharing+buttons+and+more.+Social+Warfare+is+the+ultimate+social+sharing+arsenal+for+WordPress%21+via+%40warfareplugins"><span class="iconFiller"><span class="spaceManWilly"><i class="sw swp_pinterest_icon"></i><span class="swp_share">Pin</span></span></span><span class="swp_count" style="transition: padding 0.1s linear 0s;">122.0K</span></a></div><div class="nc_tweetContainer swp_share_button swp_linkedin" data-network="linkedin"><a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank" href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fwarfareplugins.com%2F%3Futm_source%3Dlinkedin%26utm_medium%3DSocial%26utm_campaign%3DSocialWarfare" data-link="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fwarfareplugins.com%2F%3Futm_source%3Dlinkedin%26utm_medium%3DSocial%26utm_campaign%3DSocialWarfare"><span class="iconFiller"><span class="spaceManWilly"><i class="sw swp_linkedin_icon"></i><span class="swp_share">Share</span></span></span><span class="swp_count" style="transition: padding 0.1s linear 0s;">1.5K</span></a></div><div class="nc_tweetContainer swp_share_button total_shares total_sharesalt"><span class="swp_count " style="transition: padding 0.1s linear 0s;">298.4K <span class="swp_label">Shares</span></span></div></div>';
 
 		return $this;
 	}
@@ -606,5 +588,187 @@ class SWP_Section_HTML extends SWP_Option {
 		$html .= $this->html;
 		$html .= '</div>';
 		return $html;
+	}
+
+
+	/**
+	 * SWP_Section_HTML::get_allowable_html();
+	 *
+	 * This function allows us to return an array of HTML entities and their
+	 * tags which will be allowed to render when escaping html output.
+	 *
+	 * @return array The array of allowed entities and their tags
+	 *
+	 */
+	public static function get_allowable_html() {
+		return array(
+			'input' => array(
+				'type'  => array(),
+				'id'    => array(),
+				'name'  => array(),
+				'value' => array(),
+				'div'   => array(),
+				'data-swp-name' => array(),
+				'placeholder' => array(),
+				'checked' => array(),
+				'class' => array()
+			),
+			'div' => array(
+				'class' => array(),
+				'sw-registered' => array(),
+				'src' => array(),
+				'id'   => array(),
+				'swp-addons' => array(),
+				'swp-registrations' => array(),
+				'data-dep' => array(),
+				'data-dep_val' => array(),
+				'data-dep-value' => array(),
+				'data-float-color' => array(),
+				'data-float' => array(),
+				'data-float-mobile' => array(),
+				'data-transition' => array(),
+				'data-network' => array(),
+				'field' => array(),
+				'status' => array(),
+				'registration' => array(),
+			),
+			'img' => array(
+				'class' => array(),
+				'src' => array(),
+				'id'   => array()
+			),
+			'ul' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'li' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'a' => array(
+				'class' => array(),
+				'href' => array(),
+				'target' => array(),
+				'rel' => array(),
+				'data-link' => array(),
+				'data-count' => array(),
+				'id' => array(),
+				'data-rating-value' => array(),
+				'title' => array(),
+				'data-style' => array(),
+				'style' => array(),
+				'data-deactivation' => array(),
+				'swp-addon' => array(),
+				'swp-item-id' => array()
+			),
+			'form' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'h1' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'h2' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'h3' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'h4' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'h5' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'h6' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'i' => array(
+				'class' => array(),
+				'id'   => array(),
+				'data-network' => array(),
+				'premium' => array()
+			),
+			'option' => array(
+				'class' => array(),
+				'id'   => array(),
+				'value' => array(),
+				'selected' => array(),
+			),
+			'select' => array(
+				'class' => array(),
+				'id'   => array(),
+				'name' => array(),
+			),
+			'p' => array(
+				'class' => array(),
+				'id'   => array()
+			),
+			'span' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array(
+					'transition' => array()
+				)
+			),
+			'textarea' => array(
+				'class' => array(),
+				'id'   => array(),
+				'name' => array(),
+				'data-swp-name' => array(),
+			),
+			'table' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array()
+			),
+			'tr' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array()
+			),
+			'td' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array()
+			),
+			'table' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array()
+			),
+			'b' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array()
+			),
+			'style' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array()
+			),
+			'script' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array(),
+				'name' => array(),
+				'type' => array()
+			),
+			'br' => array(),
+			'sup' => array(),
+			'em' => array(),
+			'code' => array(),
+			'button' => array(
+				'class' => array(),
+				'id'   => array(),
+				'style' => array()
+			),
+		);
 	}
 }

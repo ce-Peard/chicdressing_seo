@@ -1,9 +1,9 @@
-=== WordPress Social Sharing Plugin - Social Warfare ===
-Contributors: holas84, webinator, warfareplugins, cdegraff1
-Tags: sharing buttons, social media share, floating share buttons, facebook share, google plus share, linkedin share, pin it, pinterest save, mix button, tweet button, twitter share, click to tweet, social sharing buttons, social share, social sharing, social media sharing, wordpress social sharing plugin, social sharing plugin, share buttons, share counts
+=== Social Sharing Plugin - Social Warfare ===
+Contributors: holas84, webinator, warfareplugins, cdegraff1, goqflash, andbalashov
+Tags: sharing buttons, social media share, floating share buttons, facebook share, linkedin share, pin it, pinterest save, mix button, tweet button, twitter share, click to tweet, social sharing buttons, social share, social sharing, social media sharing, wordpress social sharing plugin, social sharing plugin, share buttons, share counts
 Requires at least: 4.5.0
-Tested up to: 5.8
-Stable tag: 4.3.0
+Tested up to: 6.4.2
+Stable tag: 4.4.5.1
 Requires PHP: 5.6
 License: GNU General Public License v2.0 or later
 
@@ -25,10 +25,10 @@ You can choose from the top social networks sharing buttons, including:
 
 * Facebook
 * Twitter
-* Google+
 * Pinterest
 * LinkedIn
 * Mix
+* Mastodon
 
 You can also choose where you want the share buttons to show up. Choose from the following placement options:
 
@@ -41,11 +41,6 @@ We also give you the ability to have **floating share buttons** follow your read
 
 > "This is by far the best looking social sharing plugin I have seen on the net!"<br>
 > David Foster, Online Personality
-
-= Social Proof =
-Proudly display how many times your content has been shared-- **even tweet counts (with a _Social Warfare - Pro_ license)**! Social Proof is a powerful psychological tool that has been proven to influence even more shares.
-
-We use the social network API endpoints to ensure that the most accurate share counts are always displayed.
 
 = Popular Posts Widget based on Social Share Counts =
 Wouldn't you love to show what your most popular posts are based on the number of social shares they've received? Social Warfare allows you to do just that.
@@ -94,10 +89,7 @@ In addition to the extra social networks, you can also reactivate, track and dis
 Enabling the Image Hover Pin Button will place a "Pin" button over top of every image inside of your content when a reader hovers their mouse over it. This makes every image on your page highly sharable to Pinterest!
 
 = Powerful Share Customization =
-> "I use Social Warfare - Pro because how things are shared when I'm not there to do it is important!"<br>
-> Peg Fitzpatrick, author of The Art and Science of Social Media
-
-Social Warfare is among the pioneers of customizing how your content is shared, particularly with Pinterest. The _Social Warfare - Pro_ add-on allows you to decide exactly which image, title and description appears when your content is shared on sites like Facebook and Google+. This also applies to any other networks that use Open Graph data for social shares.
+Social Warfare is among the pioneers of customizing how your content is shared, particularly with Pinterest. The _Social Warfare - Pro_ add-on allows you to decide exactly which image, title and description appears when your content is shared on sites like Facebook and LinkedIn. This also applies to any other networks that use Open Graph data for social shares.
 
 On top of that, you can upload a **custom Pinterest image** and write a custom description so that when someone clicks the pin button, the exact image you've chosen shows up with exactly the description you've written. No more hoping that your readers choose the best image and write an optimal description for you!
 
@@ -121,7 +113,7 @@ Have you ever changed permalink structures, domain prefixes, connection protocol
 We've built a tool right into Social Warfare called <a href="https://warfareplugins.com/support/recover-social-share-counts-after-changing-permalink-settings/?utm_medium=repository&utm_campaign=description&utm_source=wordpress_org&utm_content=repo_description" target="_blank" rel="friend">Share Recovery</a> which allows you to get back your lost share counts if you've ever had to modify your permalink settings.
 
 = Social Authorship, Twitter Cards, Rich Pins and More =
-It nice to have your stuff shared on social media, it's even nicer when you get mentioned in the social share! With Social Warfare you can ensure that your authorship is always in place, including:
+It's nice to have your stuff shared on social media, it's even nicer when you get mentioned in the social share! With Social Warfare you can ensure that your authorship is always in place, including:
 
 * Facebook author and publisher attribution
 * Facebook app link (advanced users)
@@ -171,9 +163,6 @@ We have a growing archive of <a href="https://warfareplugins.com/support/" rel="
 
 = Testimonial =
 
-> I use Social Warfare - Pro because how things are shared when I'm not there to do it is important!<br>
-> Peg Fitzpatrick, Social Media Strategist
-
 > Social Warfare is by far the best social-sharing-button plugin I've ever used. I recommend it to all of my clients.<br>
 > Andrew Wilder, Consultant
 
@@ -193,6 +182,47 @@ We have a growing archive of <a href="https://warfareplugins.com/support/" rel="
 > Robert Ryan, Professional Web Designer
 
 == Changelog ==
+
+= 4.4.5.1 (11 Jan 2024) =
+* Update SWP_Pro_Analytics_Database.php
+
+= 4.4.5 (10 Jan 2024) =
+* Removed Google Plus integration
+  - Removed all instances and integrations of Google Plus from the plugin due to its discontinuation.
+  - This removal includes any Google Plus social sharing buttons, links, and related code.
+
+= 4.4.4 (23 OCT 2023) =
+* Security patch: Prevent XSS vulnerabilities in the plugin
+  - Escaped output in the `generate_css_classes` method to prevent potential XSS vulnerabilities.
+  - Added validation and escaping in the `get_min_width` method to ensure input is safe from potential XSS vulnerabilities.
+
+= 4.4.3 (19 OCT 2023) =
+* Added a new Twitter branding
+
+= 4.4.2 (30 AUG 2023) =
+* Updated Graph API endpoint to v17.0
+* Changed Twitter button branding
+* Mastodon Added
+
+= 4.4.1 (14 FEB 2023) =
+* Replace some characters after they are converted to html entities.
+* Check for $attr key before trying to use them.
+* Update verbiage on Advanced tab Frame Buster.
+
+= 4.4.0 (10 JAN 2023) =
+This update provides a nice, robust audit of the plugin. It ensures that the
+plugin remains in full compliance with the latest WordPress requirements for
+inclusion in the WordPress repository.
+
+* Removed the Update Checker from Free into Pro only.
+* Removed cURL calls in leiu of WordPress built in calls.
+* Ensure user has permission to make AJAX calls.
+* Removed <? php short tags.
+* Sanitize all inputs that come from outside sources.
+* Moved the CSS for jQuery UI to an internal asset.
+* Removed all branded logos from the header banner.
+* Removed the word WordPress from the beginning of the plugin name.
+* Added capability and nonce checks to AJAX calls.
 
 = 4.3.0 (20 JUL 2020) =
 This is a major update to the Facebook share checking functionality of the plugin.
@@ -772,7 +802,7 @@ Made some more major updates in response to Facebook's API changes. We've tested
 * Fixed a bug with the scale/resizing feature
 * Got rid of a few minor notices
 * Fixed a hover bug
-* Fixed alignment issue with side floating share buttons (Thanks Peg!)
+* Fixed alignment issue with side floating share buttons
 
 = 2.0.4 (9 August 2016) =
 

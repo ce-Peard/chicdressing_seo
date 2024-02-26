@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: WooCommerce
- * Plugin URI: https://woocommerce.com/
- * Description: An eCommerce toolkit that helps you sell anything. Beautifully.
- * Version: 6.4.1
+ * Plugin URI: https://woo.com/
+ * Description: An ecommerce toolkit that helps you sell anything. Beautifully.
+ * Version: 8.6.1
  * Author: Automattic
- * Author URI: https://woocommerce.com
+ * Author URI: https://woo.com
  * Text Domain: woocommerce
  * Domain Path: /i18n/languages/
- * Requires at least: 5.7
- * Requires PHP: 7.0
+ * Requires at least: 6.3
+ * Requires PHP: 7.4
  *
  * @package WooCommerce
  */
@@ -19,6 +19,12 @@ defined( 'ABSPATH' ) || exit;
 if ( ! defined( 'WC_PLUGIN_FILE' ) ) {
 	define( 'WC_PLUGIN_FILE', __FILE__ );
 }
+
+if ( ! defined( 'WC_BLOCKS_IS_FEATURE_PLUGIN' ) ) {
+	define( 'WC_BLOCKS_IS_FEATURE_PLUGIN', true );
+}
+
+// Test Change
 
 // Load core packages and the autoloader.
 require __DIR__ . '/src/Autoloader.php';
@@ -48,15 +54,20 @@ function WC() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.Fu
 }
 
 /**
- * Returns the WooCommerce PSR11-compatible object container.
+ * Returns the WooCommerce object container.
  * Code in the `includes` directory should use the container to get instances of classes in the `src` directory.
  *
  * @since  4.4.0
- * @return \Psr\Container\ContainerInterface The WooCommerce PSR11 container.
+ * @return \Automattic\WooCommerce\Container The WooCommerce object container.
  */
-function wc_get_container() : \Psr\Container\ContainerInterface {
+function wc_get_container() {
 	return $GLOBALS['wc_container'];
 }
 
 // Global for backwards compatibility.
 $GLOBALS['woocommerce'] = WC();
+
+// Jetpack's Rest_Authentication needs to be initialized even before plugins_loaded.
+if ( class_exists( \Automattic\Jetpack\Connection\Rest_Authentication::class ) ) {
+	\Automattic\Jetpack\Connection\Rest_Authentication::init();
+}

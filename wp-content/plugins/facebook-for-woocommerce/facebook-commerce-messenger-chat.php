@@ -9,7 +9,7 @@
  * @package FacebookCommerce
  */
 
-use SkyVerge\WooCommerce\Facebook\Locale;
+use WooCommerce\Facebook\Locale;
 
 if ( ! class_exists( 'WC_Facebookcommerce_MessengerChat' ) ) :
 
@@ -21,6 +21,12 @@ if ( ! class_exists( 'WC_Facebookcommerce_MessengerChat' ) ) :
 	 * Messenger chat handler class.
 	 */
 	class WC_Facebookcommerce_MessengerChat {
+
+		/** @var string Facebook Page ID. */
+		private $page_id;
+
+		/** @var string|null JS SDK Version. */
+		private $jssdk_version;
 
 		/**
 		 * Class constructor.
@@ -40,6 +46,23 @@ if ( ! class_exists( 'WC_Facebookcommerce_MessengerChat' ) ) :
 			add_action( 'wp_footer', array( $this, 'inject_messenger_chat_plugin' ) );
 		}
 
+		/**
+		 * __get method for backward compatibility.
+		 *
+		 * @param string $key property name
+		 * @return mixed
+		 * @since 3.0.32
+		 */
+		public function __get( $key ) {
+			// Add warning for private properties.
+			if ( in_array( $key, array( 'page_id', 'jssdk_version' ), true ) ) {
+				/* translators: %s property name. */
+				_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( 'The %s property is private and should not be accessed outside its class.', 'facebook-for-woocommerce' ), esc_html( $key ) ), '3.0.32' );
+				return $this->$key;
+			}
+
+			return null;
+		}
 
 		/**
 		 * Outputs the Facebook Messenger chat script.
@@ -85,23 +108,6 @@ if ( ! class_exists( 'WC_Facebookcommerce_MessengerChat' ) ) :
 
 			endif;
 		}
-
-
-		/**
-		 * Gets the locales supported by Facebook Messenger.
-		 *
-		 * @since 1.10.0
-		 * @deprecated since 2.2.0
-		 *
-		 * @return array associative array of locale codes and names
-		 */
-		public static function get_supported_locales() {
-
-			wc_deprecated_function( __METHOD__, '2.2.0', '\\SkyVerge\\WooCommerce\\Facebook\\Locales::get_supported_locales_list()' );
-
-			return Locale::get_supported_locales();
-		}
-
 
 	}
 

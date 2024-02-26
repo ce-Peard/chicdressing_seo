@@ -254,6 +254,7 @@ class SWP_Database_Migration {
 				wp_die('You do not have authorization to view this page.');
 			}
 			$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : 'page';
+			$post_type = sanitize_text_field( $post_type );
 			$this->reset_post_meta_float_location( $post_type );
 		}
 
@@ -300,7 +301,7 @@ class SWP_Database_Migration {
 		}
 
 		if ( true === SWP_Utility::debug( ( 'delete_plugin_data' ) ) ) {
-			$password = isset($_GET['swp_confirmation']) ? urldecode($_GET['swp_confirmation']) : '';
+			$password = isset($_GET['swp_confirmation']) ? sanitize_text_field( urldecode( $_GET['swp_confirmation'] ) ) : '';
 			$user = wp_get_current_user();
 			if ( !current_user_can( 'manage_options' )
 			|| false == wp_check_password( $password, $user->user_pass, $user->ID) ) {
@@ -420,9 +421,7 @@ class SWP_Database_Migration {
 		}
 
 		$hidden_map = array(
-			'_googlePlus_shares'    => '_google_plus_shares',
 			'_linkedIn_shares'      => '_linkedin_shares',
-			'bitly_link_googlePlus' => '_bitly_link_google_plus',
 			'bitly_link_linkedIn'   => '_bitly_link_linked_in'
 		);
 
@@ -583,7 +582,6 @@ class SWP_Database_Migration {
 				'linkedIn'   => 'linkedin',
 				'pinterest'  => 'pinterest',
 				'facebook'   => 'facebook',
-				'google_plus' => 'google_plus',
 			),
 		);
 
@@ -597,6 +595,7 @@ class SWP_Database_Migration {
 	 * This also deletes the previous keys once the migration is done.
 	 * @since  3.0.0  | 01 MAY 2018 | Created the function
 	 * @since  3.1.0 | 13 JUN 2018 | Replaced array bracket notation.
+	 * @since  4.4.5 | 08 JAN 2014 | Removed Google Plus
 	 * @param  void
 	 * @return void
 	 *
@@ -695,11 +694,6 @@ class SWP_Database_Migration {
 
 			//* Specific case: newOrderOfIcons mapping.
 			if ( 'newOrderOfIcons' === $old ) :
-				if ( array_key_exists( 'googlePlus', $new_value ) ) :
-					unset( $new_value['googlePlus'] );
-					$new_value[] = 'google_plus';
-				endif;
-
 				if (array_key_exists( 'linkedIn', $new_value) ) :
 					unset( $new_value['linkedIn'] );
 					$new_value[] = 'linkedin';
