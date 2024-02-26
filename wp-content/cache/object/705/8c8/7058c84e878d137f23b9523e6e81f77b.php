@@ -1,0 +1,1 @@
+ FÜe<?php exit; ?>a:1:{s:7:"content";s:70:"http://localhost/chicdressing_seo/wp-includes/images/media/default.png";}
