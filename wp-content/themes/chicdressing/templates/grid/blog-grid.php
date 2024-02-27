@@ -144,7 +144,7 @@
 	endif; // have_posts()
 
 	echo '</ul>';
-	echo '<p class="text-center"><a class="chic-bouton" href="/blog">Voir tous les articles</a></p>';
+	echo '<p class="text-center"><a class="chic-bouton" href="/chicdressing_seo/#leblog">Voir tous les articles</a></p>';
 
 	?>
 
